@@ -1,17 +1,32 @@
-let lastScrollPosition = window.scrollY;
+   function getTweets() {
+  let divs = document.querySelectorAll("div"); // Load Div Elements
+  //console.log(divs)
 
-function handleScroll() {
-  const currentScrollPosition = window.scrollY;
+  for (let div of divs) {
+    let dataTestId = div.getAttribute("data-testid");
 
-  if (currentScrollPosition > lastScrollPosition) {
-    console.log('User Is Scrolling down...');
-  } else if (currentScrollPosition < lastScrollPosition) {
-    console.log('User Is Scrolling up...');
-  } else {
-    console.log('Not scrolling.');
+    if (dataTestId === "User-Name") {
+     // console.log("User-Name element found");
+
+      const usernameTag = div.querySelector('a[role="link"]');
+      const username = usernameTag
+        ? usernameTag.getAttribute("href").split("/").pop()
+        : null;
+
+      if (username) {
+        console.log("Username:", username);
+      } else {
+        console.log("Username not found.");
+      }
+    }
+
+    
   }
+} 
 
-  lastScrollPosition = currentScrollPosition;
-}
 
-window.addEventListener('scroll', handleScroll);
+  window.addEventListener("scroll",()=>{
+     getTweets();
+   
+  });
+
